@@ -4,7 +4,7 @@
 
 #include "ofMain.h"
 #include "ofx3DUtils.h"
-
+#include "ofxVectorMath.h"
 
 
 class testApp : public ofSimpleApp{

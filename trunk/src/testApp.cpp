@@ -60,15 +60,13 @@ void testApp::update(){
 	float L3PosZ = 500;
 	light3.pointLight(0, 0, 255, L3PosX, L3PosY, L3PosZ);
 	
-	camera.lerpPosition(centerX, centerY, 500, 0.1); //interpolate the camera into a closer position
+//	camera.lerpPosition(centerX, centerY, 500, 0.1); //interpolate the camera into a closer position
 
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	
 	camera.place();//this MUST be inside the draw function, and actually places the camera in position
-	
 	ofxLightsOn(); //turn lights on
 	ofSetColor(255, 255, 255);
 	glPushMatrix();
@@ -78,16 +76,39 @@ void testApp::draw(){
 	glutSolidSphere(200, 30, 30);
 	glPopMatrix();
 	
+	camera.remove();
 	ofxLightsOff(); //turn lights off to draw text
 	string info = "PRESSING MOUSE WILL TURN SMOOTH LIGHTS OFF";
 	ofSetColor(0, 0, 0);
 	ofDrawBitmapString(info, 20, 20);
 	//i guess cameras and text dont go very well ;)
-
+//	camera.orbitAround(ofxVec3f(centerX,centerY,centerZ),ofxVec3f(0,1,0),1);
+//	camera.rotate(ofxVec3f(0,1,0),1);
 }
 
 //--------------------------------------------------------------
 void testApp::keyPressed  (int key){ 
+	if(key == OF_KEY_LEFT){
+		camera.moveGlobal(-3, 0, 0);
+	} else if(key == OF_KEY_RIGHT){
+		camera.moveGlobal(3, 0, 0);
+	} else if(key == OF_KEY_UP){
+		camera.moveGlobal(0, 3, 0);
+	} else if(key == OF_KEY_DOWN){
+		camera.moveGlobal(0, -3, 0);
+	} else if(key == '+'){
+		camera.moveGlobal(0, 0, -30);
+	} else if(key == '-'){
+		camera.moveGlobal(0, 0, 30);
+	}	else if(key == 'w'){
+		camera.moveLocal(0, 0, 30);
+	} else if(key == 's'){
+		camera.moveLocal(0, 0, -30);
+	} else if(key == 'a'){
+		camera.moveLocal(-3, 0, 0);
+	} else if(key == 'd'){
+		camera.moveLocal(3, 0, 0);
+	}
 	
 }
 
@@ -98,8 +119,14 @@ void testApp::keyReleased  (int key){
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ){
-mouseX = x;
-mouseY = y;
+	if(mx-x != 0){
+		camera.rotate(ofxVec3f(0,1,0), -(mx-x)*1);
+	}
+	
+	mx = x;
+	my = y;
+	mouseX = x;
+	mouseY = y;
 }
 
 //--------------------------------------------------------------
