@@ -63,7 +63,7 @@ void ofxCamera::up(ofxVec3f _up){
 
 void ofxCamera::up(){
 	upVec.x = 0;
-	upVec.y = -1;
+	upVec.y = 1;
 	upVec.z = 0;
 }
 
@@ -91,6 +91,15 @@ void ofxCamera::place(){
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(posCoord[0], posCoord[1], posCoord[2], eyeCoord[0], eyeCoord[1], eyeCoord[2], upVec[0], upVec[1], upVec[2]);
+
+	// the coordinate system here is based on 2d geometry:
+	// down = +y
+	// right = +x
+	// out of screen = +z
+	// this is a bit different from the usual 3d coordinate systems,
+	// where +y is up instead of down
+	glScalef(1, -1, 1);
+	glTranslatef(0, -h, 0);
 }
 
 
