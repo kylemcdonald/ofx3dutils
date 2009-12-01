@@ -16,12 +16,23 @@
  To render from the camera's perspective.
 */
 
+/*
+ A better implementation would use quaternions,
+ code for which is described at the end of this presentation:
+
+ http://www.cs.sunysb.edu/~mueller/teaching/cse564/trackball.ppt
+
+ The code has the advantage of not requiring an implementation of
+ a quaternion class.
+*/
+
 #pragma once
 
 #include "ofx3DUtils.h"
 
 class ofxEasyCam : public ofxCamera {
 private:
+	float startMomentum, stopMomentum;
 	bool mouseHasMoved, mouseClicked;
 	float dmouseX, dmouseY, pmouseX, pmouseY;
 	int mouseButton;
@@ -29,6 +40,8 @@ public:
 	float zoomSpeed, orbitSpeed, panSpeed;
 
 	ofxEasyCam() {
+		startMomentum = .5;
+		stopMomentum = .5;
 		zoomSpeed = 1;
 		orbitSpeed = .2;
 		panSpeed = 1;
@@ -64,8 +77,8 @@ public:
 				(rely * dmouseY * panSpeed);
 			moveGlobal(offset);
 		}
-		dmouseX *= .9;
-		dmouseY *= .9;
+		dmouseX *= stopMomentum;
+		dmouseY *= stopMomentum;
 		place();
 	}
 	void mousePressed(ofMouseEventArgs& event) {
@@ -80,8 +93,8 @@ public:
 		int x = event.x;
 		int y = event.y;
 		if(mouseHasMoved) {
-			dmouseX = pmouseX - x;
-			dmouseY = pmouseY - y;
+			dmouseX = ofLerp(pmouseX - x, dmouseX, startMomentum);
+			dmouseY = ofLerp(pmouseY - y, dmouseY, startMomentum);
 		} else
 			mouseHasMoved = true;
 		pmouseX = x;

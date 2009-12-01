@@ -63,7 +63,7 @@ void ofxCamera::up(ofxVec3f _up){
 
 void ofxCamera::up(){
 	upVec.x = 0;
-	upVec.y = 1;
+	upVec.y = -1;
 	upVec.z = 0;
 }
 
@@ -91,9 +91,6 @@ void ofxCamera::place(){
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(posCoord[0], posCoord[1], posCoord[2], eyeCoord[0], eyeCoord[1], eyeCoord[2], upVec[0], upVec[1], upVec[2]);
-
-	glScalef(1, -1, 1);
-	glTranslatef(0, -h, 0);
 }
 
 
@@ -105,7 +102,7 @@ void ofxCamera::remove(){
 
 
 void ofxCamera::moveLocal(float _x, float _y, float _z){
-	moveLocal(ofxVec3f(_x, _y, _z));	
+	moveLocal(ofxVec3f(_x, _y, _z));
 }
 
 void ofxCamera::moveLocal(ofxVec3f move){
@@ -115,7 +112,7 @@ void ofxCamera::moveLocal(ofxVec3f move){
 
 	posCoord += upVec.rescaled(move.y);
 	eyeCoord += upVec.rescaled(move.y);
-	
+
 	posCoord += dir.cross(upVec).rescaled(move.x);
 	eyeCoord += dir.cross(upVec).rescaled(move.x);
 }
