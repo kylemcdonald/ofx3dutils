@@ -1,19 +1,12 @@
 /*
  In your test class, add a member variable:
-
- ofxEasyCam camera;
-
- In your setup(), say:
-
- camera.setup(this, distance);
-
- Where distance is the camera's distance from the scene's center.
+  ofxEasyCam camera;
 
  Finally, in your draw(), say:
-
- camera.draw();
-
- To render from the camera's perspective.
+  camera.place();
+ To render from the camera's perspective. To draw a HUD, add:
+  camera.remove();
+ When you're done drawing from the camera's perspective.
 */
 
 /*
@@ -39,34 +32,31 @@ private:
 public:
 	float zoomSpeed, orbitSpeed, panSpeed;
 
-	ofxEasyCam() {
-		startMomentum = .5;
-		stopMomentum = .5;
-		zoomSpeed = 1;
-		orbitSpeed = .2;
-		panSpeed = 1;
+	ofxEasyCam() :
+		startMomentum(.5),
+		stopMomentum(.5),
+		zoomSpeed(1),
+		orbitSpeed(.2),
+		panSpeed(1),
+		mouseHasMoved(false),
+		mouseClicked(false),
+		dmouseX(0), dmouseY(0),
+		pmouseX(0), pmouseY(0) {
+
 		ofAddListener(ofEvents.mousePressed, this, &ofxEasyCam::mousePressed);
 		ofAddListener(ofEvents.mouseReleased, this, &ofxEasyCam::mouseReleased);
 		ofAddListener(ofEvents.mouseDragged, this, &ofxEasyCam::mouseDragged);
+
+		float theta = PI * fieldOfView / 360.0f;
+		float opposite = ofGetWidth() / 2;
+		posCoord.z = opposite / tanf(theta);
 	}
-	void setup(ofBaseApp* app, float dist) {
-		position(ofGetWidth() / 2, ofGetHeight() / 2, dist);
-		dmouseX = dmouseY = pmouseX = pmouseY = 0;
-		mouseHasMoved = false;
-		mouseClicked = false;
-	}
-	void draw() {
+	void place() {
 		ofxVec3f relx = getDir().getCrossed(getUp()).normalize();
 		ofxVec3f rely = getDir().getCrossed(relx).normalize();
 		if(mouseButton == 0) {
-			orbitAround(
-				getEye(),
-				relx,
-				orbitSpeed * dmouseY);
-			orbitAround(
-				getEye(),
-				rely,
-				orbitSpeed * -dmouseX);
+			ofxVec3f rot = relx * dmouseY + rely * -dmouseX;
+			orbitAround(getEye(), rot, rot.length() * orbitSpeed);
 		} else if(mouseButton == 2) {
 			ofxVec3f offset = getDir().normalize() * (zoomSpeed * dmouseY);
 			eye(getEye() - offset);
@@ -79,7 +69,7 @@ public:
 		}
 		dmouseX *= stopMomentum;
 		dmouseY *= stopMomentum;
-		place();
+		ofxCamera::place();
 	}
 	void mousePressed(ofMouseEventArgs& event) {
 		if(mouseClicked == true)
