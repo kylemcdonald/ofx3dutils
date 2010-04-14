@@ -1,6 +1,7 @@
 #include "ofxCamera.h"
 
 ofxCamera::ofxCamera(){
+    setOrigin(OF_ORIGIN);
 	perspective();
 	position();
 	eye();
@@ -16,8 +17,15 @@ void ofxCamera::position(ofxVec3f _pos){
 	posCoord = _pos;
 }
 void ofxCamera::position(){
-	posCoord.x = (float)w/2.0f;
-	posCoord.y = (float)h/2.0f;
+    if(origin == OF_ORIGIN) {
+        posCoord.x = (float)w/2.0f;
+        posCoord.y = (float)h/2.0f;
+    }
+    else
+    {
+        posCoord.x = 0.0f;
+        posCoord.y = 0.0f;
+    }
 	float halfFov = PI * fieldOfView / 360.0f;
 	float theTan = tanf(halfFov);
 	posCoord.z = posCoord.y/theTan;
@@ -54,8 +62,14 @@ void ofxCamera::eye(ofxVec3f _pos){
 }
 
 void ofxCamera::eye(){
-	eyeCoord.x = (float)w/2.0f;
-	eyeCoord.y = (float)h/2.0f;
+    if(origin == OF_ORIGIN) {
+        eyeCoord.x = (float)w/2.0f;
+        eyeCoord.y = (float)h/2.0f;
+    }
+    else {
+        eyeCoord.x = 0;
+        eyeCoord.y = 0;
+    }
 	eyeCoord.z = 0;
 }
 
@@ -94,6 +108,14 @@ void ofxCamera::perspective(){
 	zFar = 10000.0f;
 }
 
+// This sets the camera origin to either OF coordinates or zero (for OF_ORIGIN_ZERO)
+void ofxCamera::setOrigin(cameraOrigin org)
+{
+    origin = org;
+	position();
+	eye();
+}
+
 void ofxCamera::place(){
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -108,8 +130,12 @@ void ofxCamera::place(){
 	// out of screen = +z
 	// this is a bit different from the usual 3d coordinate systems,
 	// where +y is up instead of down
-	glScalef(1, -1, 1);
-	glTranslatef(0, -h, 0);
+	if(origin == OF_ORIGIN)
+	{
+        glScalef(1, -1, 1);
+        glTranslatef(0, -h, 0);
+	}
+
 }
 
 

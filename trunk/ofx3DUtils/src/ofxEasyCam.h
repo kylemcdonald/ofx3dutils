@@ -62,7 +62,7 @@ public:
 			ofxVec3f offset = getDir().normalize() * (zoomSpeed * dmouseY);
 			eye(getEye() - offset);
 			moveGlobal(offset);
-		} else if(mouseButton == 3) {
+		} else if(mouseButton == 1) {
 			ofxVec3f offset =
 				(relx * dmouseX * panSpeed) +
 				(rely * dmouseY * panSpeed);
