@@ -33,6 +33,16 @@ void ofxCamera::lerpPosition(ofxVec3f target, float step){
 	lerpPosition(target.x, target.y, target.z, step);
 }
 
+void ofxCamera::lerpEye(float _targetX, float _targetY, float _targetZ, float _step){
+	eyeCoord.x += (_targetX - eyeCoord.x) * _step;
+	eyeCoord.y += (_targetY - eyeCoord.y) * _step;
+	eyeCoord.z += (_targetZ - eyeCoord.z) * _step;
+}
+
+void ofxCamera::lerpEye(ofxVec3f target, float step){
+	lerpEye(target.x, target.y, target.z, step);
+}
+
 void ofxCamera::eye(float x, float y, float z){
 	eyeCoord.x = x;
 	eyeCoord.y = y;
@@ -122,8 +132,8 @@ void ofxCamera::moveLocal(ofxVec3f move){
 	posCoord += upVec.rescaled(move.y);
 	eyeCoord += upVec.rescaled(move.y);
 
-	posCoord += dir.cross(upVec).rescaled(move.x);
-	eyeCoord += dir.cross(upVec).rescaled(move.x);
+	posCoord += dir.getCrossed(upVec).rescaled(move.x);
+	eyeCoord += dir.getCrossed(upVec).rescaled(move.x);
 }
 
 void ofxCamera::moveGlobal(float _x, float _y, float _z){

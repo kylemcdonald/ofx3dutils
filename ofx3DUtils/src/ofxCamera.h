@@ -12,6 +12,8 @@ public:
 	void position(); //reset the position to initial values
 	void lerpPosition(float _x, float _y, float _z, float _step); //step should be a value between 0 and 1
 	void lerpPosition(ofxVec3f _pos, float _step); //step should be a value between 0 and 1
+	void lerpEye(float _x, float _y, float _z, float _step); //step should be a value between 0 and 1
+	void lerpEye(ofxVec3f _target, float _step); //step should be a value between 0 and 1
 
 	void eye(float _x, float _y, float _z);
 	void eye(ofxVec3f _eye);
