@@ -35,13 +35,14 @@ public:
 	ofxEasyCam() :
 		startMomentum(.5),
 		stopMomentum(.5),
-		zoomSpeed(1),
-		orbitSpeed(.2),
-		panSpeed(1),
 		mouseHasMoved(false),
 		mouseClicked(false),
 		dmouseX(0), dmouseY(0),
-		pmouseX(0), pmouseY(0) {
+		pmouseX(0), pmouseY(0),
+		zoomSpeed(1),
+		orbitSpeed(.2),
+		panSpeed(1)
+		{
 
 		ofAddListener(ofEvents.mousePressed, this, &ofxEasyCam::mousePressed);
 		ofAddListener(ofEvents.mouseReleased, this, &ofxEasyCam::mouseReleased);
