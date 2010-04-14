@@ -23,6 +23,7 @@ void testApp::setup(){
 	light2.specular(255, 255, 255);
 	light3.specular(255, 255, 255);
 
+    camera.setOrigin(OF_ORIGIN_ZERO);
 	camera.position(centerX, centerY, 5000); //initialize the camera at a far position from the sphere
 	
 }

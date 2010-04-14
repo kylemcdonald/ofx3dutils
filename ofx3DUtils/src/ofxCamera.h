@@ -3,6 +3,11 @@
 #include "ofMain.h"
 #include "ofxVectorMath.h"
 
+enum cameraOrigin {
+    OF_ORIGIN,
+    OF_ORIGIN_ZERO,
+    };
+
 class ofxCamera{
 public:
 	ofxCamera();
@@ -25,6 +30,7 @@ public:
 	void perspective(float _fov, float _aspect, float _zNear, float _zFar);
 	void perspective();//reset perspective to initial values
 
+    void setOrigin(cameraOrigin org); // This sets the camera origin to either OF coordinates or zero (for OF_ORIGIN_ZERO)
 	virtual void place(); //this must go in the draw function!!!!
 	void remove(); //Removes the camera, so it returns as if there was no camera
 
@@ -47,6 +53,7 @@ protected:
 	ofxVec3f upVec;
 
 	//relative to defining the persperctive:
+	cameraOrigin    origin;
 	float	fieldOfView;
 	int	w;
 	int	h;
