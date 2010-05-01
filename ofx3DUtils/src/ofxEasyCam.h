@@ -33,23 +33,29 @@ public:
 	float zoomSpeed, orbitSpeed, panSpeed;
 
 	ofxEasyCam() :
-		startMomentum(.5),
-		stopMomentum(.5),
-		mouseHasMoved(false),
-		mouseClicked(false),
-		dmouseX(0), dmouseY(0),
-		pmouseX(0), pmouseY(0),
-		zoomSpeed(1),
-		orbitSpeed(.2),
-		panSpeed(1)
-		{
-
+			startMomentum(.5),
+			stopMomentum(.5),
+			zoomSpeed(1),
+			orbitSpeed(.2),
+			panSpeed(1) {
 		ofAddListener(ofEvents.mousePressed, this, &ofxEasyCam::mousePressed);
 		ofAddListener(ofEvents.mouseReleased, this, &ofxEasyCam::mouseReleased);
 		ofAddListener(ofEvents.mouseDragged, this, &ofxEasyCam::mouseDragged);
 
+		reset();
+	}
+	void reset() {
+		dmouseX = 0;
+		dmouseY = 0;
+		pmouseX = 0;
+		pmouseY = 0;
+		mouseHasMoved = false;
+		mouseClicked = false;
 		float theta = PI * fieldOfView / 360.0f;
 		float opposite = ofGetWidth() / 2;
+		position();
+		up();
+		eye();
 		posCoord.z = opposite / tanf(theta);
 	}
 	void place() {
