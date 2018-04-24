@@ -1,8 +1,7 @@
-#include "testApp.h"
-
+#include "ofApp.h"
 
 //--------------------------------------------------------------
-void testApp::setup(){	 
+void ofApp::setup() {	 
 	ofBackground(250,250,250);
 	ofSetVerticalSync(true);
 	glEnable(GL_DEPTH_TEST); //lights look weird if depth test is not enabled
@@ -25,11 +24,10 @@ void testApp::setup(){
 
     camera.setOrigin(OF_ORIGIN_ZERO);
 	camera.position(centerX, centerY, 5000); //initialize the camera at a far position from the sphere
-	
 }
 
 //--------------------------------------------------------------
-void testApp::update(){
+void ofApp::update() {
 	rotX += 1;
 	rotY += 2;
 	
@@ -63,12 +61,10 @@ void testApp::update(){
 	light3.pointLight(0, 0, 255, L3PosX, L3PosY, L3PosZ);
 	
 	camera.lerpPosition(centerX, centerY, 500, 0.1); //interpolate the camera into a closer position
-
 }
 
 //--------------------------------------------------------------
-void testApp::draw(){
-	
+void ofApp::draw() {
 	camera.place();//this MUST be inside the draw function, and actually places the camera in position
 	
 	ofxLightsOn(); //turn lights on
@@ -86,35 +82,33 @@ void testApp::draw(){
 	string info = "PRESSING MOUSE WILL TURN SMOOTH LIGHTS OFF";
 	ofSetColor(0, 0, 0);
 	ofDrawBitmapString(info, 20, 20);
-
-
 }
 
 //--------------------------------------------------------------
-void testApp::keyPressed  (int key){ 
+void ofApp::keyPressed(int key) { 
 	
 }
 
 //--------------------------------------------------------------
-void testApp::keyReleased  (int key){ 
+void ofApp::keyReleased(int key) { 
 	
 }
 
 //--------------------------------------------------------------
-void testApp::mouseMoved(int x, int y ){
+void ofApp::mouseMoved(int x, int y ) {
 
 }
 
 //--------------------------------------------------------------
-void testApp::mouseDragged(int x, int y, int button){
+void ofApp::mouseDragged(int x, int y, int button) {
 }
 
 //--------------------------------------------------------------
-void testApp::mousePressed(int x, int y, int button){
+void ofApp::mousePressed(int x, int y, int button) {
 	ofxSetSmoothLight(false);
 }
 
 //--------------------------------------------------------------
-void testApp::mouseReleased(){
+void ofApp::mouseReleased() {
 	ofxSetSmoothLight(true);
 }

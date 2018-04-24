@@ -13,16 +13,16 @@ int coneResolution = 30;
 
 //////////////
 //sphere
-void ofxCreateSphereList(){
+void ofxCreateSphereList() {
 	if(!(bool)glIsEnabled(GL_NORMALIZE)) glEnable(GL_NORMALIZE);
 	sphereList = glGenLists(1);
 	glNewList(sphereList, GL_COMPILE);
 	float theta,nextTheta, phi, x, y, z;
-	for(int i=0; i<sphereResolution; i++){
+	for(int i=0; i<sphereResolution; i++) {
 		theta = (float)i/(sphereResolution-1) * TWO_PI;
 		nextTheta = (float)((i+1)%sphereResolution)/(sphereResolution-1) * TWO_PI;
 		glBegin(GL_QUAD_STRIP);
-		for(int j=0; j<sphereResolution; j++){
+		for(int j=0; j<sphereResolution; j++) {
 			phi = (float)j/(sphereResolution-1) * PI;
 			x = cos(theta) * sin(phi);
 			y = sin(theta) * sin(phi);
@@ -39,7 +39,7 @@ void ofxCreateSphereList(){
 	}
 	glEndList();
 }
-void ofxSphere(float x, float y, float z, float size){
+void ofxSphere(float x, float y, float z, float size) {
 	if(sphereList == 0) ofxCreateSphereList();
 	glPushMatrix();
 	glTranslatef(x, y, z);
@@ -47,7 +47,7 @@ void ofxSphere(float x, float y, float z, float size){
 	glCallList(sphereList);
 	glPopMatrix();
 }
-void ofxSphere(float x, float y, float z, float width, float height, float depth){
+void ofxSphere(float x, float y, float z, float width, float height, float depth) {
 	if(sphereList == 0) ofxCreateSphereList();
 	glPushMatrix();
 	glTranslatef(x, y, z);
@@ -56,7 +56,7 @@ void ofxSphere(float x, float y, float z, float width, float height, float depth
 	glPopMatrix();
 }
 
-void ofxSphere(float x, float y, float z, float width, float height, float depth, float rotX, float rotY, float rotZ){
+void ofxSphere(float x, float y, float z, float width, float height, float depth, float rotX, float rotY, float rotZ) {
 	if(sphereList == 0) ofxCreateSphereList();
 	glPushMatrix();
 	glTranslatef(x, y, z);
@@ -69,7 +69,7 @@ void ofxSphere(float x, float y, float z, float width, float height, float depth
 	
 }
 //overloaded for ofxVec
-void ofxSphere(ofxVec3f position, float size){
+void ofxSphere(ofVec3f position, float size) {
 	if(sphereList == 0) ofxCreateSphereList();
 	glPushMatrix();
 	glTranslatef(position.x, position.y, position.z);
@@ -77,7 +77,7 @@ void ofxSphere(ofxVec3f position, float size){
 	glCallList(sphereList);
 	glPopMatrix();
 }
-void ofxSphere(ofxVec3f position, ofxVec3f size){
+void ofxSphere(ofVec3f position, ofVec3f size) {
 	if(sphereList == 0) ofxCreateSphereList();
 	glPushMatrix();
 	glTranslatef(position.x, position.y, position.z);
@@ -86,7 +86,7 @@ void ofxSphere(ofxVec3f position, ofxVec3f size){
 	glPopMatrix();
 	
 }
-void ofxSphere(ofxVec3f position, ofxVec3f size, ofxVec3f rotation){
+void ofxSphere(ofVec3f position, ofVec3f size, ofVec3f rotation) {
 	glPushMatrix();
 	glTranslatef(position.x, position.y, position.z);
 	glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
@@ -98,9 +98,9 @@ void ofxSphere(ofxVec3f position, ofxVec3f size, ofxVec3f rotation){
 	
 }
 
-void ofxSetSphereResolution(int _resolution){
+void ofxSetSphereResolution(int _resolution) {
 	sphereResolution = _resolution;
-	if(sphereList == 0){
+	if(sphereList == 0) {
 		ofxCreateSphereList();
 	} else {
 		glDeleteLists(sphereList, 1);
@@ -111,7 +111,7 @@ void ofxSetSphereResolution(int _resolution){
 ///////////
 //box
 
-void ofxCreateBoxList(){
+void ofxCreateBoxList() {
 	if(!(bool)glIsEnabled(GL_NORMALIZE)) glEnable(GL_NORMALIZE);
 	boxList = glGenLists(1);
 	glNewList(boxList, GL_COMPILE);
@@ -163,7 +163,7 @@ void ofxCreateBoxList(){
 	glEndList();
 	
 }
-void ofxBox(float x, float y, float z, float size){
+void ofxBox(float x, float y, float z, float size) {
 	if(boxList == 0) ofxCreateBoxList();
 	glPushMatrix();
 	glTranslatef(x, y, z);
@@ -171,7 +171,7 @@ void ofxBox(float x, float y, float z, float size){
 	glCallList(boxList);
 	glPopMatrix();
 }
-void ofxBox(float x, float y, float z, float width, float height, float depth){
+void ofxBox(float x, float y, float z, float width, float height, float depth) {
 	if(boxList == 0) ofxCreateBoxList();
 	glPushMatrix();
 	glTranslatef(x, y, z);
@@ -179,7 +179,7 @@ void ofxBox(float x, float y, float z, float width, float height, float depth){
 	glCallList(boxList);
 	glPopMatrix();
 }
-void ofxBox(float x, float y, float z, float width, float height, float depth, float rotX, float rotY, float rotZ){
+void ofxBox(float x, float y, float z, float width, float height, float depth, float rotX, float rotY, float rotZ) {
 	if(boxList == 0) ofxCreateBoxList();
 	glPushMatrix();
 	glTranslatef(x, y, z);
@@ -190,8 +190,8 @@ void ofxBox(float x, float y, float z, float width, float height, float depth, f
 	glCallList(boxList);
 	glPopMatrix();
 }
-//ofxVec3f:
-void ofxBox(ofxVec3f position, float size){
+//ofVec3f:
+void ofxBox(ofVec3f position, float size) {
 	if(boxList == 0) ofxCreateBoxList();
 	glPushMatrix();
 	glTranslatef(position.x, position.y, position.z);
@@ -199,7 +199,7 @@ void ofxBox(ofxVec3f position, float size){
 	glCallList(boxList);
 	glPopMatrix();
 }
-void ofxBox(ofxVec3f position, ofxVec3f size){
+void ofxBox(ofVec3f position, ofVec3f size) {
 	if(boxList == 0) ofxCreateBoxList();
 	glPushMatrix();
 	glTranslatef(position.x, position.y, position.z);
@@ -207,7 +207,7 @@ void ofxBox(ofxVec3f position, ofxVec3f size){
 	glCallList(boxList);
 	glPopMatrix();
 }
-void ofxBox(ofxVec3f position, ofxVec3f size, ofxVec3f rotation){
+void ofxBox(ofVec3f position, ofVec3f size, ofVec3f rotation) {
 	if(boxList == 0) ofxCreateBoxList();
 	glPushMatrix();
 	glTranslatef(position.x, position.y, position.z);
@@ -222,17 +222,17 @@ void ofxBox(ofxVec3f position, ofxVec3f size, ofxVec3f rotation){
 
 //////////////
 //cone
-void ofxCreateConeList(){
+void ofxCreateConeList() {
 	if(!(bool)glIsEnabled(GL_NORMALIZE)) glEnable(GL_NORMALIZE);
 	coneList = glGenLists(1);
 	glNewList(coneList, GL_COMPILE);
 	float angle, x, y, z;
 	
-	ofxVec3f vecA, vecB, normalVec;
+	ofVec3f vecA, vecB, normalVec;
 	//the cone
 	glBegin(GL_TRIANGLE_FAN);
 	glVertex3f(0.0f, -0.5f, 0.0f);
-	for(int i=0; i<coneResolution; i++){
+	for(int i=0; i<coneResolution; i++) {
 		angle = (float)i / (coneResolution-1) * TWO_PI;
 		x = sin(angle);
 		y = 0.5f;
@@ -246,7 +246,7 @@ void ofxCreateConeList(){
 	glBegin(GL_TRIANGLE_FAN);
 	glNormal3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(0.0f, 0.5f, 0.0f);
-	for(int i=0; i<coneResolution; i++){
+	for(int i=0; i<coneResolution; i++) {
 		angle = (float)i /( coneResolution-1) * TWO_PI;
 		x = sin(angle);
 		y = 0.5f;
@@ -259,7 +259,7 @@ void ofxCreateConeList(){
 	
 }
 
-void ofxCone( float x, float y, float z, float size){
+void ofxCone( float x, float y, float z, float size) {
 	if(coneList == 0) ofxCreateConeList();
 	glPushMatrix();
 	glTranslatef(x, y, z);
@@ -267,7 +267,7 @@ void ofxCone( float x, float y, float z, float size){
 	glCallList(coneList);
 	glPopMatrix();
 }
-void ofxCone(float x, float y, float z, float width, float height, float depth){
+void ofxCone(float x, float y, float z, float width, float height, float depth) {
 	if(coneList == 0) ofxCreateConeList();
 	glPushMatrix();
 	glTranslatef(x, y, z);
@@ -276,7 +276,7 @@ void ofxCone(float x, float y, float z, float width, float height, float depth){
 	glPopMatrix();
 }
 
-void ofxCone(float x, float y, float z, float width, float height, float depth, float rotX, float rotY, float rotZ){
+void ofxCone(float x, float y, float z, float width, float height, float depth, float rotX, float rotY, float rotZ) {
 	if(coneList == 0) ofxCreateConeList();
 	glPushMatrix();
 	glTranslatef(x, y, z);
@@ -287,8 +287,8 @@ void ofxCone(float x, float y, float z, float width, float height, float depth, 
 	glCallList(coneList);
 	glPopMatrix();
 }
-//ofxVec3f
-void ofxCone(ofxVec3f position, float size){
+//ofVec3f
+void ofxCone(ofVec3f position, float size) {
 	if(coneList == 0) ofxCreateConeList();
 	glPushMatrix();
 	glTranslatef(position.x, position.y, position.z);
@@ -296,7 +296,7 @@ void ofxCone(ofxVec3f position, float size){
 	glCallList(coneList);
 	glPopMatrix();
 }
-void ofxCone(ofxVec3f position, ofxVec3f size){
+void ofxCone(ofVec3f position, ofVec3f size) {
 	if(coneList == 0) ofxCreateConeList();
 	glPushMatrix();
 	glTranslatef(position.x, position.y, position.z);
@@ -304,7 +304,7 @@ void ofxCone(ofxVec3f position, ofxVec3f size){
 	glCallList(coneList);
 	glPopMatrix();
 }
-void ofxCone(ofxVec3f position, ofxVec3f size, ofxVec3f rotation){
+void ofxCone(ofVec3f position, ofVec3f size, ofVec3f rotation) {
 	if(coneList == 0) ofxCreateConeList();
 	glPushMatrix();
 	glTranslatef(position.x, position.y, position.z);
@@ -316,9 +316,9 @@ void ofxCone(ofxVec3f position, ofxVec3f size, ofxVec3f rotation){
 	glPopMatrix();
 }
 
-void ofxSetConeResolution(int _resolution){
+void ofxSetConeResolution(int _resolution) {
 	coneResolution = _resolution;
-	if(coneList == 0){
+	if(coneList == 0) {
 		ofxCreateConeList();
 	} else {
 		glDeleteLists(coneList, 1);
@@ -327,7 +327,7 @@ void ofxSetConeResolution(int _resolution){
 }
 //////////////////
 //capsule:
-void ofxCreateCapsuleList(){
+void ofxCreateCapsuleList() {
 	if(!(bool)glIsEnabled(GL_NORMALIZE)) glEnable(GL_NORMALIZE);
 	capsuleList = glGenLists(1);
 	glNewList(capsuleList, GL_COMPILE);
@@ -336,11 +336,11 @@ void ofxCreateCapsuleList(){
 	int halfResolution = capsuleResolution/2;
 	
 	//the capsule
-	for(int i=0; i<halfResolution; i++){
+	for(int i=0; i<halfResolution; i++) {
 		theta = (float)i / (halfResolution-1) * PI;
 		nextTheta = (float)((i+1)%halfResolution) / (halfResolution-1) * PI;
 		glBegin(GL_QUAD_STRIP);
-		for(int j=0; j<capsuleResolution; j++){
+		for(int j=0; j<capsuleResolution; j++) {
 			phi = (float)j / (capsuleResolution-1) * PI;
 			x = cos(theta) * sin(phi);
 			y = sin(theta) * sin(phi);
@@ -362,7 +362,7 @@ void ofxCreateCapsuleList(){
 	glNormal3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(0.0f, 0.0f, 0.0f);
 	float angle;
-	for(int i=0; i<capsuleResolution; i++){
+	for(int i=0; i<capsuleResolution; i++) {
 		angle = (float)i / (capsuleResolution-1) * TWO_PI;
 		x = cos(angle);
 		y = 0.0f;
@@ -373,7 +373,7 @@ void ofxCreateCapsuleList(){
 	glEndList();
 	
 }
-void ofxCapsule(float x, float y, float z, float size){
+void ofxCapsule(float x, float y, float z, float size) {
 	if(capsuleList == 0)ofxCreateCapsuleList();
 	glPushMatrix();
 	glTranslatef(x, y, z);
@@ -381,7 +381,7 @@ void ofxCapsule(float x, float y, float z, float size){
 	glCallList(capsuleList);
 	glPopMatrix();
 }
-void ofxCapsule(float x, float y, float z, float width, float height, float depth){
+void ofxCapsule(float x, float y, float z, float width, float height, float depth) {
 	if(capsuleList == 0)ofxCreateCapsuleList();
 	glPushMatrix();
 	glTranslatef(x, y, z);
@@ -389,7 +389,7 @@ void ofxCapsule(float x, float y, float z, float width, float height, float dept
 	glCallList(capsuleList);
 	glPopMatrix();
 }
-void ofxCapsule(float x, float y, float z, float width, float height, float depth, float rotX, float rotY, float rotZ){
+void ofxCapsule(float x, float y, float z, float width, float height, float depth, float rotX, float rotY, float rotZ) {
 	if(capsuleList == 0)ofxCreateCapsuleList();
 	glPushMatrix();
 	glTranslatef(x, y, z);
@@ -400,8 +400,8 @@ void ofxCapsule(float x, float y, float z, float width, float height, float dept
 	glCallList(capsuleList);
 	glPopMatrix();
 }
-//ofxVec3f
-void ofxCapsule(ofxVec3f position, float size){
+//ofVec3f
+void ofxCapsule(ofVec3f position, float size) {
 	if(capsuleList == 0)ofxCreateCapsuleList();
 	glPushMatrix();
 	glTranslatef(position.x, position.y, position.z);
@@ -409,7 +409,7 @@ void ofxCapsule(ofxVec3f position, float size){
 	glCallList(capsuleList);
 	glPopMatrix();
 }
-void ofxCapsule(ofxVec3f position, ofxVec3f size){
+void ofxCapsule(ofVec3f position, ofVec3f size) {
 	if(capsuleList == 0)ofxCreateCapsuleList();
 	glPushMatrix();
 	glTranslatef(position.x, position.y, position.z);
@@ -418,7 +418,7 @@ void ofxCapsule(ofxVec3f position, ofxVec3f size){
 	glPopMatrix();
 			 
 }
-void ofxCapsule(ofxVec3f position, ofxVec3f size, ofxVec3f rotation){
+void ofxCapsule(ofVec3f position, ofVec3f size, ofVec3f rotation) {
 	if(capsuleList == 0)ofxCreateCapsuleList();
 	glPushMatrix();
 	glTranslatef(position.x, position.y, position.z);
@@ -429,9 +429,9 @@ void ofxCapsule(ofxVec3f position, ofxVec3f size, ofxVec3f rotation){
 	glCallList(capsuleList);
 	glPopMatrix();
 }
-void ofxSetCapsuleResolution(int _resolution){
+void ofxSetCapsuleResolution(int _resolution) {
 	capsuleResolution = _resolution;
-	if(capsuleList == 0){
+	if(capsuleList == 0) {
 		ofxCreateCapsuleList();
 	} else {
 		glDeleteLists(capsuleList, 1);
@@ -441,31 +441,31 @@ void ofxSetCapsuleResolution(int _resolution){
 
 ///////////////////
 //lines, points, etc..
-void ofxLine(float x1, float y1, float z1, float x2, float y2, float z2){
+void ofxLine(float x1, float y1, float z1, float x2, float y2, float z2) {
 	glBegin(GL_LINES);
 	glVertex3f(x1, y1, z1);
 	glVertex3f(x2, y2, z2);
 	glEnd();
 }
-void ofxLine(ofxVec3f pos1, ofxVec3f pos2){
+void ofxLine(ofVec3f pos1, ofVec3f pos2) {
 	glBegin(GL_LINES);
 	glVertex3f(pos1.x, pos1.y, pos1.z);
 	glVertex3f(pos2.x, pos2.y, pos2.z);
 	glEnd();
 }
 
-void ofxPoint(float x, float y, float z){
+void ofxPoint(float x, float y, float z) {
 	glBegin(GL_POINTS);
 	glVertex3f(x, y, z);
 	glEnd();
 }
-void ofxPoint(ofxVec3f pos){
+void ofxPoint(ofVec3f pos) {
 	glBegin(GL_POINTS);
 	glVertex3f(pos.x, pos.y, pos.z);
 	glEnd();
 }
 
-void ofxQuad(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4){
+void ofxQuad(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4) {
 	glBegin(GL_QUADS);
 	glVertex3f(x1, y1, z1);
 	glVertex3f(x2, y2, z2);
@@ -473,7 +473,7 @@ void ofxQuad(float x1, float y1, float z1, float x2, float y2, float z2, float x
 	glVertex3f(x4, y4, z4);
 	glEnd();
 }
-void ofxQuad(ofxVec3f pos1, ofxVec3f pos2, ofxVec3f pos3, ofxVec3f pos4){
+void ofxQuad(ofVec3f pos1, ofVec3f pos2, ofVec3f pos3, ofVec3f pos4) {
 	glBegin(GL_QUADS);
 	glVertex3f(pos1.x, pos1.y, pos1.z);
 	glVertex3f(pos2.x, pos2.y, pos2.z);
@@ -482,14 +482,14 @@ void ofxQuad(ofxVec3f pos1, ofxVec3f pos2, ofxVec3f pos3, ofxVec3f pos4){
 	glEnd();
 }
 
-void ofxTriangle(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3){
+void ofxTriangle(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3) {
 	glBegin(GL_TRIANGLES);
 	glVertex3f(x1, y1, z1);
 	glVertex3f(x2, y2, z2);
 	glVertex3f(x3, y3, z3);
 	glEnd();
 }
-void ofxTriangle(ofxVec3f pos1, ofxVec3f pos2, ofxVec3f pos3){
+void ofxTriangle(ofVec3f pos1, ofVec3f pos2, ofVec3f pos3) {
 	glBegin(GL_TRIANGLES);
 	glVertex3f(pos1.x, pos1.y, pos1.z);
 	glVertex3f(pos2.x, pos2.y, pos2.z);
@@ -509,17 +509,17 @@ vector<GLfloat>vertices;
 vector<float>normals;
 vector<GLdouble*>newVertexes;
 
-void CALLBACK ofxTessVertex(void * data){
+void CALLBACK ofxTessVertex(void * data) {
 	glVertex3dv((GLdouble*)data);
 }
 
-void CALLBACK ofxTessError(GLenum errCode){
+void CALLBACK ofxTessError(GLenum errCode) {
 	const GLubyte* estring;
 	estring = gluErrorString( errCode);
 	fprintf( stderr, "ERROR : %s\n", estring);
 }
 
-void CALLBACK ofxTessCombine( GLdouble coords[3], void* vertex_data[4], GLfloat weight[4], void** outData){
+void CALLBACK ofxTessCombine( GLdouble coords[3], void* vertex_data[4], GLfloat weight[4], void** outData) {
     double* vertex = new double[3];
     newVertexes.push_back(vertex);
     vertex[0] = coords[0];
@@ -528,10 +528,10 @@ void CALLBACK ofxTessCombine( GLdouble coords[3], void* vertex_data[4], GLfloat 
     *outData = vertex;
 }
 
-ofxVec3f calcNormal(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3){
-	ofxVec3f vecA = ofxVec3f(x2-x1, y2-y1, z2-z1);
-	ofxVec3f vecB = ofxVec3f(x3-x2, y3-y2, z3-z2);
-	ofxVec3f normalVec = vecA.cross(vecB);
+ofVec3f calcNormal(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3) {
+	ofVec3f vecA = ofVec3f(x2-x1, y2-y1, z2-z1);
+	ofVec3f vecB = ofVec3f(x3-x2, y3-y2, z3-z2);
+	ofVec3f normalVec = vecA.cross(vecB);
 	normalVec.normalize();
 	return normalVec;
 }
@@ -540,8 +540,8 @@ void initTesselator();
 void drawShapewithTesselator();
 void drawShapeWithTesselatorAndNormals();
 
-void drawShapeWithTesselator(){
-	if(bTessInited == false){
+void drawShapeWithTesselator() {
+	if(bTessInited == false) {
 		bTessInited = true;
 		initTesselator();
 	}
@@ -549,21 +549,21 @@ void drawShapeWithTesselator(){
 	gluTessBeginPolygon(theTesselator, NULL);
 	gluTessBeginContour(theTesselator);
 	gluTessNormal(theTesselator, 0,0,1);
-	for(int i=0; i<vertices.size(); i+=3){
+	for(int i=0; i<vertices.size(); i+=3) {
 		gluTessVertex(theTesselator, (GLdouble*)&vertices[i], &vertices);
 	}
 	gluTessEndContour(theTesselator);
 	gluTessEndPolygon(theTesselator);
 }
 
-void drawShapeWithTesselatorAndNormals(){
-	if(bTessInited == false){
+void drawShapeWithTesselatorAndNormals() {
+	if(bTessInited == false) {
 		bTessInited = true;
 		initTesselator();
 	}
 }
 
-void initTesselator(){
+void initTesselator() {
 	theTesselator = gluNewTess();
 	gluTessCallback( theTesselator, GLU_TESS_BEGIN, (void(CALLBACK*)())&glBegin);
 	gluTessCallback( theTesselator, GLU_TESS_VERTEX, (void(CALLBACK*)())&ofxTessVertex);
@@ -573,61 +573,61 @@ void initTesselator(){
 	
 }
 
-void ofxBeginShape(){
+void ofxBeginShape() {
 	shapeMode = OFX_POLYGON;
 	vertices.clear();
 	normals.clear();
-	if(newVertexes.size() > 0){
-		for(int i=0; i<newVertexes.size(); i++){
+	if(newVertexes.size() > 0) {
+		for(int i=0; i<newVertexes.size(); i++) {
 			delete[] newVertexes[i];
 		}
 		newVertexes.clear();
 	}
 }
 
-void ofxBeginShape(GLuint _shapeMode){
+void ofxBeginShape(GLuint _shapeMode) {
 	shapeMode = _shapeMode;
 	vertices.clear();
 	normals.clear();
-	if(newVertexes.size() > 0){
-		for(int i=0; i<newVertexes.size(); i++){
+	if(newVertexes.size() > 0) {
+		for(int i=0; i<newVertexes.size(); i++) {
 			delete[] newVertexes[i];
 		}
 		newVertexes.clear();
 	}
 }
 
-void ofxVertex(float x, float y, float z){
+void ofxVertex(float x, float y, float z) {
 	vertices.push_back(x);
 	vertices.push_back(y);
 	vertices.push_back(z);
 }
 
-void ofxVertex(ofxVec3f vertex){
+void ofxVertex(ofVec3f vertex) {
 	vertices.push_back(vertex.x);
 	vertices.push_back(vertex.y);
 	vertices.push_back(vertex.z);
 }
 
-void ofxEndShape(bool bClose){
-	if(bClose){
+void ofxEndShape(bool bClose) {
+	if(bClose) {
 		vertices.push_back(vertices[0]);
 		vertices.push_back(vertices[1]);
 		vertices.push_back(vertices[2]);
 	}
-	if((bool)glIsEnabled(GL_LIGHTING)){
+	if((bool)glIsEnabled(GL_LIGHTING)) {
 		if(shapeMode == OFX_POLYGON) drawShapeWithTesselatorAndNormals();
 		else {
 			int numFaces = vertices.size() / 3;
-			if(shapeMode == OFX_QUADS or shapeMode == OFX_QUAD_STRIP){
+			if(shapeMode == OFX_QUADS or shapeMode == OFX_QUAD_STRIP) {
 				numFaces /= 4;
 			}
-			ofxVec3f normalVec;
-			for(int i=0; i<vertices.size()/3; i+=9){
+			ofVec3f normalVec;
+			for(int i=0; i<vertices.size()/3; i+=9) {
 				normalVec = calcNormal(vertices[i], vertices[i+1], vertices[i+2],
 									   vertices[i+3], vertices[i+4], vertices[i+5],
 									   vertices[i+6], vertices[i+7], vertices[i+8]);
-				for(int j=0; j<3; j++){
+				for(int j=0; j<3; j++) {
 					normals.push_back(normalVec.x);
 					normals.push_back(normalVec.y);
 					normals.push_back(normalVec.z);
@@ -646,7 +646,7 @@ void ofxEndShape(bool bClose){
 		if(shapeMode == OFX_POLYGON) drawShapeWithTesselator();
 		else {
 			int numFaces = vertices.size() / 3;
-			if(shapeMode == OFX_QUADS or shapeMode == OFX_QUAD_STRIP){
+			if(shapeMode == OFX_QUADS or shapeMode == OFX_QUAD_STRIP) {
 				numFaces /= 4;
 			}
 			glEnableClientState(GL_VERTEX_ARRAY);
